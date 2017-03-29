@@ -1,6 +1,7 @@
 
 public class Board {
-
+	
+	int p1, p2;
 	int boardArr[][] = new int[8][8];
 
 	public Board() {
@@ -13,11 +14,22 @@ public class Board {
 			}
 		}
 	}
+	
+	public Board(Board oldboard){
+		for(int i = 0; i < 8; i++){
+			for(int j = 0; j < 8; j++){
+				this.boardArr[i][j] = oldboard.boardArr[i][j];
+			}
+		}
+		 
+	}
 
 	public void printBoard() {
 		int player1 = 0, player2 = 0;
+		System.out.println("   0 1 2 3 4 5 6 7 ");
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
+				if (j == 0) System.out.print(" " + i + " ");
 				if (boardArr[i][j] == 0)
 					System.out.print("_|");
 				if (boardArr[i][j] == 1) {
@@ -34,6 +46,8 @@ public class Board {
 			System.out.println();
 		}
 		System.out.printf("Player 1: %d Player 2: %d\n", player1, player2);
+		p1 = player1;
+		p2 = player2;
 	}
 
 	public void updatePlayerMoves(int player) {
@@ -56,6 +70,8 @@ public class Board {
 									if (boardArr[x][y] == player) {
 										boardArr[i - 1][j - 1] = 3;
 										break;
+									} else if(boardArr[x][y] == 0 || boardArr[x][y] == 3){
+										break;
 									}
 									x++;
 									y++;
@@ -70,6 +86,8 @@ public class Board {
 									if (boardArr[x][y] == player) {
 										boardArr[i - 1][j + 1] = 3;
 										break;
+									} else if(boardArr[x][y] == 0 || boardArr[x][y] == 3){
+										break;
 									}
 									x++;
 									y--;
@@ -82,6 +100,8 @@ public class Board {
 							while (x < 8) {
 								if (boardArr[x][y] == player) {
 									boardArr[i - 1][j] = 3;
+									break;
+								} else if(boardArr[x][y] == 0 || boardArr[x][y] == 3){
 									break;
 								}
 								x++;
@@ -97,6 +117,8 @@ public class Board {
 									if (boardArr[x][y] == player) {
 										boardArr[i + 1][j - 1] = 3;
 										break;
+									} else if(boardArr[x][y] == 0 || boardArr[x][y] == 3){
+										break;
 									}
 									x--;
 									y++;
@@ -111,6 +133,8 @@ public class Board {
 									if (boardArr[x][y] == player) {
 										boardArr[i + 1][j + 1] = 3;
 										break;
+									} else if(boardArr[x][y] == 0 || boardArr[x][y] == 3){
+										break;
 									}
 									x--;
 									y--;
@@ -123,6 +147,8 @@ public class Board {
 							while (x > -1) {
 								if (boardArr[x][y] == player) {
 									boardArr[i + 1][j] = 3;
+									break;
+								} else if(boardArr[x][y] == 0 || boardArr[x][y] == 3){
 									break;
 								}
 								x--;
@@ -137,6 +163,8 @@ public class Board {
 								if (boardArr[x][y] == player) {
 									boardArr[i][j - 1] = 3;
 									break;
+								} else if(boardArr[x][y] == 0 || boardArr[x][y] == 3){
+									break;
 								}
 								y++;
 							}
@@ -149,6 +177,8 @@ public class Board {
 							while (y > -1) {
 								if (boardArr[x][y] == player) {
 									boardArr[i][j + 1] = 3;
+									break;
+								} else if(boardArr[x][y] == 0 || boardArr[x][y] == 3){
 									break;
 								}
 								y--;
@@ -182,7 +212,7 @@ public class Board {
 	public boolean emptyCell() {
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
-				if (boardArr[i][j] == 0)
+				if (boardArr[i][j] == 0 || boardArr[i][j] == 3)
 					return true;
 			}
 		}
@@ -370,4 +400,49 @@ public class Board {
 			y--;
 		}
 	}
+
+	public void declareWinner() {
+		int winner = 0;
+		if(p1 > p2){
+			winner = 1;
+		} else if(p2 > p1) {
+			winner = 2;
+		} else {
+			winner = 0;
+		}
+		if(winner != 0){
+			System.out.println("Player " + winner + " is the winner!");
+		} else {
+			System.out.println("The game was a draw!");
+		}
+	}
+
+	public void updateScore() {
+		int player1 = 0, player2 = 0;
+		
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 8; j++) {
+				if (boardArr[i][j] == 1) {
+					player1++;
+				}
+				if (boardArr[i][j] == 2) {
+					player2++;	
+				}	
+			}
+		}
+		p1 = player1;
+		p2 = player2;
+	}
+	
+	public int whoWon() {
+		
+		if(p1 > p2){
+			return 1;
+		} else if(p2 > p1) {
+			return 2;
+		}		
+		return 0;
+	}
+
+	
 }
