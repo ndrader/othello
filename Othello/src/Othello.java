@@ -1,6 +1,4 @@
-
 public class Othello{
-
 	public static void main(String[] args) {
 		Menu menu = new Menu();
 		int gamemode = menu.getInput();
@@ -8,5 +6,4 @@ public class Othello{
 		game.play(gamemode);
 		menu.closeScanner();
 	}
-
 }

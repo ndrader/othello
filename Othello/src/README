@@ -1,0 +1,37 @@
+Nathen Rader April 3, 2017
+
+Othello
+AlphaBeta +  MinMax 
+OS 4300 - 001
+
+How to Use:
+
+	How to Compile:
+		Use the included makefile.
+		make
+		
+	How to Use:
+		Run normally and input values when prompted.
+		Or when running from the command line:
+		java Othello
+		
+Description of project:
+
+	This project uses Alpha Beta Search to choose the best move based on the given heuristic. A limit to depth and time per move is hard coded into the algorithm.
+		The heuristic given for this project is a combination of the following:
+			Maximizing number of coins owned vs Minimizing opponents (least weight in Heuristic)		
+			Maximizing future moves vs Minimizing opponents	(mild weight in Heuristic)
+			Maximizing corners owned vs Minimizing opponents (high weight in Heuristic)
+			Win vs Loss (greatest weight in Heurisitc)
+		Once a move is found the turn is passed to the next player.
+		Also implemented is a computer vs computer option that compares how alpha beta plays using the same heuristic vs the minimax function playing. 
+			With the current set depth per search this option appears they are near equal in search time, most likely both hitting the time limit per turn. 
+			No great change in results based on switching who plays first.
+			At lower depth limiting alpha beta concludes its turns faster.
+
+	Known Errors:
+		No known errors.
+		
+	Potential Improvements:
+		Would like to implement a GUI for this using JavaFX.
+		Would revisit the heuristic to test for true successful performance.

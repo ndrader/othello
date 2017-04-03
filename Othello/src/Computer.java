@@ -1,5 +1,6 @@
 public class Computer {
 
+	int boardSizeC = 6;
 	long startTime;
 	long timeOut = 5 * 1000;
 
@@ -127,8 +128,8 @@ public class Computer {
 			bestvalue.setHeuristic(-999999999);
 			
 			// for each possible valid move
-			for (int i = 0; i < 8; i++) {
-				for (int j = 0; j < 8; j++) {
+			for (int i = 0; i < boardSizeC; i++) {
+				for (int j = 0; j < boardSizeC; j++) {
 					if (node.board.boardArr[i][j] == 3) {
 						newMove = new Node(node.board);
 						//update this node with a move being played
@@ -155,8 +156,8 @@ public class Computer {
 		//imitate (+Infinity)
 		bestvalue.setHeuristic(999999999);
 		// for each possible valid move
-		for (int i = 0; i < 8; i++) {
-			for (int j = 0; j < 8; j++) {
+		for (int i = 0; i < boardSizeC; i++) {
+			for (int j = 0; j < boardSizeC; j++) {
 				if (node.board.boardArr[i][j] == 3) {
 					newMove = new Node(node.board);
 					//update this node with a new move
@@ -264,8 +265,8 @@ public class Computer {
 			bestvalue.setHeuristic(-999999999);
 			
 			// for each possible valid move
-			for (int i = 0; i < 8; i++) {
-				for (int j = 0; j < 8; j++) {
+			for (int i = 0; i < boardSizeC; i++) {
+				for (int j = 0; j < boardSizeC; j++) {
 					if (node.board.boardArr[i][j] == 3) {
 						newMove = new Node(node.board);
 						//update this node with a move being played
@@ -295,8 +296,8 @@ public class Computer {
 		//imitate (+Infinity)
 		bestvalue.setHeuristic(999999999);
 		// for each possible valid move
-		for (int i = 0; i < 8; i++) {
-			for (int j = 0; j < 8; j++) {
+		for (int i = 0; i < boardSizeC; i++) {
+			for (int j = 0; j < boardSizeC; j++) {
 				if (node.board.boardArr[i][j] == 3) {
 					newMove = new Node(node.board);
 					//update this node with a new move
@@ -376,16 +377,16 @@ public class Computer {
 		double mobility = 0;
 		int p1Mobility = 0, p2Mobility = 0;
 		if (player == 1) {
-			for(int i = 0; i < 8; i++){
-				for(int j = 0; j < 8; j++){
+			for(int i = 0; i < boardSizeC; i++){
+				for(int j = 0; j < boardSizeC; j++){
 					if(temp.boardArr[i][j] == 3){
 						p1Mobility++;
 					}
 				}
 			}
 		} else {
-			for(int i = 0; i < 8; i++){
-				for(int j = 0; j < 8; j++){
+			for(int i = 0; i < boardSizeC; i++){
+				for(int j = 0; j < boardSizeC; j++){
 					if(temp.boardArr[i][j] == 3){
 						p2Mobility++;
 					}
@@ -395,16 +396,16 @@ public class Computer {
 		int otherPlayer = player == 2 ? 1 : 2; 
 		temp.updatePlayerMoves(otherPlayer);
 		if (player == 1) {
-			for(int i = 0; i < 8; i++){
-				for(int j = 0; j < 8; j++){
+			for(int i = 0; i < boardSizeC; i++){
+				for(int j = 0; j < boardSizeC; j++){
 					if(temp.boardArr[i][j] == 3){
 						p2Mobility++;
 					}
 				}
 			}
 		} else {
-			for(int i = 0; i < 8; i++){
-				for(int j = 0; j < 8; j++){
+			for(int i = 0; i < boardSizeC; i++){
+				for(int j = 0; j < boardSizeC; j++){
 					if(temp.boardArr[i][j] == 3){
 						p1Mobility++;
 					}
@@ -434,13 +435,13 @@ public class Computer {
 		int p2Corner = 0;
 		double Corners = 0;
 		if(temp.boardArr[0][0] == 1) p1Corner++;
-		if(temp.boardArr[0][7] == 1) p1Corner++;
-		if(temp.boardArr[7][0] == 1) p1Corner++;
-		if(temp.boardArr[7][7] == 1) p1Corner++;
+		if(temp.boardArr[0][boardSizeC - 1] == 1) p1Corner++;
+		if(temp.boardArr[boardSizeC - 1][0] == 1) p1Corner++;
+		if(temp.boardArr[boardSizeC - 1][boardSizeC - 1] == 1) p1Corner++;
 		if(temp.boardArr[0][0] == 2) p2Corner++;
-		if(temp.boardArr[0][7] == 2) p2Corner++;
-		if(temp.boardArr[7][0] == 2) p2Corner++;
-		if(temp.boardArr[7][7] == 2) p2Corner++;
+		if(temp.boardArr[0][boardSizeC - 1] == 2) p2Corner++;
+		if(temp.boardArr[boardSizeC - 1][0] == 2) p2Corner++;
+		if(temp.boardArr[boardSizeC - 1][boardSizeC - 1] == 2) p2Corner++;
 		
 		if((p1Corner + p2Corner) != 0){
 			if (player == 1) {

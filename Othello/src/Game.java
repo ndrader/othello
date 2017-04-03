@@ -2,7 +2,7 @@
 public class Game {
 
 	Board board = new Board();
-	int depth = 20;
+	int depth = 60;
 	
 	public Game() {
 		//nothing to init
@@ -31,14 +31,14 @@ public class Game {
 				if(board.availableMove()){
 					deadlock = 0;
 					board.printBoard();
-					otherAI.getMove(board, depth, 1);
+					otherAI.getMoveAlphaBeta(board, depth, 1);
 				}
 			} else {
 				board.updatePlayerMoves(2);
 				if(board.availableMove()){
 					deadlock = 0;
 					board.printBoard();
-					ai.getMoveAlphaBeta(board, depth, 2);
+					ai.getMove(board, depth, 2);
 				}
 			}
 			if(turn == 1 && !board.emptyCell()) break;
@@ -105,7 +105,7 @@ public class Game {
 				if(board.availableMove()){
 					deadlock = 0;
 					board.printBoard();
-					ai.getMove(board, depth, computer);
+					ai.getMoveAlphaBeta(board, depth, computer);
 				}
 			}
 			if(turn == 1 && !board.emptyCell()) break;

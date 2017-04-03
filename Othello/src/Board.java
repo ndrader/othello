@@ -2,22 +2,24 @@
 public class Board {
 	
 	int p1, p2;
-	int boardArr[][] = new int[8][8];
+	int boardSize = 6;
+	int boardArr[][] = new int[boardSize][boardSize];
+	
 
 	public Board() {
-		for (int i = 0; i < 8; i++) {
-			for (int j = 0; j < 8; j++) {
-				if ((i == 3 && j == 3) || (i == 4 && j == 4))
+		for (int i = 0; i < boardSize; i++) {
+			for (int j = 0; j < boardSize; j++) {
+				if ((i == ((boardSize/2) - 1) && j == ((boardSize/2) - 1)) || (i == (boardSize/2) && j == (boardSize/2)))
 					boardArr[i][j] = 2;
-				if ((i == 3 && j == 4) || (i == 4 && j == 3))
+				if ((i == ((boardSize/2) - 1) && j == (boardSize/2)) || (i == (boardSize/2) && j == ((boardSize/2) - 1)))
 					boardArr[i][j] = 1;
 			}
 		}
 	}
 	
 	public Board(Board oldboard){
-		for(int i = 0; i < 8; i++){
-			for(int j = 0; j < 8; j++){
+		for(int i = 0; i < boardSize; i++){
+			for(int j = 0; j < boardSize; j++){
 				this.boardArr[i][j] = oldboard.boardArr[i][j];
 			}
 		}
@@ -26,9 +28,17 @@ public class Board {
 
 	public void printBoard() {
 		int player1 = 0, player2 = 0;
-		System.out.println("   0 1 2 3 4 5 6 7 ");
-		for (int i = 0; i < 8; i++) {
-			for (int j = 0; j < 8; j++) {
+		System.out.print("   ");
+		for(int i = 0; i < boardSize; i++){
+			if(i < 10)
+				System.out.print(i + " ");
+			else if(i >= 10)
+				System.out.print(i);
+		}
+		System.out.println();
+		//System.out.println("   0 1 2 3 4 5 ");
+		for (int i = 0; i < boardSize; i++) {
+			for (int j = 0; j < boardSize; j++) {
 				if (j == 0) System.out.print(" " + i + " ");
 				if (boardArr[i][j] == 0)
 					System.out.print("_|");
@@ -58,15 +68,15 @@ public class Board {
 		// checks if a cell around it is blank
 		// if the blank cell is in line with the current player update it to a
 		// valid move
-		for (int i = 0; i < 8; i++) {
-			for (int j = 0; j < 8; j++) {
+		for (int i = 0; i < boardSize; i++) {
+			for (int j = 0; j < boardSize; j++) {
 				if (boardArr[i][j] == checkAgainst) {
 					if (i - 1 > -1) {
 						if (j - 1 > -1) {
 							if (boardArr[i - 1][j - 1] == 0) {
 								x = i + 1;
 								y = j + 1;
-								while (x < 8 && y < 8) {
+								while (x < boardSize && y < boardSize) {
 									if (boardArr[x][y] == player) {
 										boardArr[i - 1][j - 1] = 3;
 										break;
@@ -78,11 +88,11 @@ public class Board {
 								}
 							}
 						}
-						if (j + 1 < 8) {
+						if (j + 1 < boardSize) {
 							if (boardArr[i - 1][j + 1] == 0) {
 								x = i + 1;
 								y = j - 1;
-								while (x < 8 && y > -1) {
+								while (x < boardSize && y > -1) {
 									if (boardArr[x][y] == player) {
 										boardArr[i - 1][j + 1] = 3;
 										break;
@@ -97,7 +107,7 @@ public class Board {
 						if (boardArr[i - 1][j] == 0) {
 							x = i + 1;
 							y = j;
-							while (x < 8) {
+							while (x < boardSize) {
 								if (boardArr[x][y] == player) {
 									boardArr[i - 1][j] = 3;
 									break;
@@ -108,12 +118,12 @@ public class Board {
 							}
 						}
 					}
-					if (i + 1 < 8) {
+					if (i + 1 < boardSize) {
 						if (j - 1 > -1) {
 							if (boardArr[i + 1][j - 1] == 0) {
 								x = i - 1;
 								y = j + 1;
-								while (x > -1 && y < 8) {
+								while (x > -1 && y < boardSize) {
 									if (boardArr[x][y] == player) {
 										boardArr[i + 1][j - 1] = 3;
 										break;
@@ -125,7 +135,7 @@ public class Board {
 								}
 							}
 						}
-						if (j + 1 < 8) {
+						if (j + 1 < boardSize) {
 							if (boardArr[i + 1][j + 1] == 0) {
 								x = i - 1;
 								y = j - 1;
@@ -159,7 +169,7 @@ public class Board {
 						if (boardArr[i][j - 1] == 0) {
 							x = i;
 							y = j + 1;
-							while (y < 8) {
+							while (y < boardSize) {
 								if (boardArr[x][y] == player) {
 									boardArr[i][j - 1] = 3;
 									break;
@@ -170,7 +180,7 @@ public class Board {
 							}
 						}
 					}
-					if (j + 1 < 8) {
+					if (j + 1 < boardSize) {
 						if (boardArr[i][j + 1] == 0) {
 							x = i;
 							y = j - 1;
@@ -191,8 +201,8 @@ public class Board {
 	}
 
 	public void clearMoves() {
-		for (int i = 0; i < 8; i++) {
-			for (int j = 0; j < 8; j++) {
+		for (int i = 0; i < boardSize; i++) {
+			for (int j = 0; j < boardSize; j++) {
 				if (boardArr[i][j] == 3)
 					boardArr[i][j] = 0;
 			}
@@ -200,8 +210,8 @@ public class Board {
 	}
 
 	public boolean availableMove() {
-		for (int i = 0; i < 8; i++) {
-			for (int j = 0; j < 8; j++) {
+		for (int i = 0; i < boardSize; i++) {
+			for (int j = 0; j < boardSize; j++) {
 				if (boardArr[i][j] == 3)
 					return true;
 			}
@@ -210,8 +220,8 @@ public class Board {
 	}
 
 	public boolean emptyCell() {
-		for (int i = 0; i < 8; i++) {
-			for (int j = 0; j < 8; j++) {
+		for (int i = 0; i < boardSize; i++) {
+			for (int j = 0; j < boardSize; j++) {
 				if (boardArr[i][j] == 0 || boardArr[i][j] == 3)
 					return true;
 			}
@@ -240,7 +250,7 @@ public class Board {
 		// diagonal down right
 		x = i + 1;
 		y = j + 1;
-		while (x < 8 && y < 8) {
+		while (x < boardSize && y < boardSize) {
 			if (boardArr[x][y] == player) {
 				if ((x != (i + 1)) && (y != (j + 1)))
 					shouldFlipBetween = true;
@@ -262,7 +272,7 @@ public class Board {
 		shouldFlipBetween = false;
 		x = i + 1;
 		y = j;
-		while (x < 8) {
+		while (x < boardSize) {
 			if (boardArr[x][y] == player) {
 				if ((x != (i + 1)))
 					shouldFlipBetween = true;
@@ -281,7 +291,7 @@ public class Board {
 		shouldFlipBetween = false;
 		x = i + 1;
 		y = j - 1;
-		while (x < 8 && y > -1) {
+		while (x < boardSize && y > -1) {
 			if (boardArr[x][y] == player) {
 				if ((x != (i + 1)) && (y != (j - 1)))
 					shouldFlipBetween = true;
@@ -303,7 +313,7 @@ public class Board {
 		shouldFlipBetween = false;
 		x = i - 1;
 		y = j + 1;
-		while (x > -1 && y < 8) {
+		while (x > -1 && y < boardSize) {
 			if (boardArr[x][y] == player) {
 				if ((x != (i - 1)) && (y != (j + 1)))
 					shouldFlipBetween = true;
@@ -385,7 +395,7 @@ public class Board {
 		shouldFlipBetween = false;
 		x = i;
 		y = j + 1;
-		while (y < 8) {
+		while (y < boardSize) {
 			if (boardArr[x][y] == player) {
 				if (y != (j + 1))
 					shouldFlipBetween = true;
@@ -420,8 +430,8 @@ public class Board {
 	public void updateScore() {
 		int player1 = 0, player2 = 0;
 		
-		for (int i = 0; i < 8; i++) {
-			for (int j = 0; j < 8; j++) {
+		for (int i = 0; i < boardSize; i++) {
+			for (int j = 0; j < boardSize; j++) {
 				if (boardArr[i][j] == 1) {
 					player1++;
 				}
